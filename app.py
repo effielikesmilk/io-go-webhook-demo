@@ -47,4 +47,4 @@ if __name__ == '__main__':
 
     print("Starting app on port %d" % port)
 
-    app.run(prot=port)
+    app.run(port=port)
