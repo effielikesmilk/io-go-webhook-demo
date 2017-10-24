@@ -1,5 +1,7 @@
 # -*- coding:utf8 -*-
 from __future__ import print_function   # 禁用print，只能用print()
+from future.standard_library import install_aliases
+install_aliases()
 
 import os
 import json
