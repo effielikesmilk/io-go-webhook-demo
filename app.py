@@ -22,6 +22,8 @@ def webhook():
     print(json.dumps(req, indent=4))
 
     res = processRequest(req)
+    
+    res = json.dumps(res, indent=4)
     # print(res)
     r = make_response(res) # make_response()的参数必须是字符串
     r.headers['Content-Type'] = 'application/json'
@@ -39,14 +41,17 @@ def processRequest(req):
 
     if my_action == "noRecomPlace":
         my_action = my_previous_action
-        res = "那去铜锣湾你觉得ok吗？"
+        res = "铜锣湾怎么样？"
     else:
-        res = "那你想去尖沙咀么？"
-    return res
+        res = "那去尖沙咀呗"
+    return {
+        "speech": res,
+        "displayText": res
+    }
 
 if __name__ == '__main__':
     port = int(os.getenv('PORT', 5000))
 
-    print("Starting app on port %d" % port)
+    print "Starting app on port %d" % port
 
     app.run(debug=False, port=port, host='0.0.0.0')
