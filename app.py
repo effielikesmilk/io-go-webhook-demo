@@ -21,13 +21,37 @@ def webhook():
     print("Request:")
     print(json.dumps(req, indent=4))
 
-    res = processRequest(req)
     
+    res = processRequest(req)
+
     res = json.dumps(res, indent=4)
     # print(res)
     r = make_response(res) # make_response()的参数必须是字符串
     r.headers['Content-Type'] = 'application/json'
     return r
+
+
+@app.route('/webhook', methods=['POST'])
+def triggerevent():
+    req = request.get_json(silent=True, force=True)
+    action = req.get("result").get("action")
+    if action == "needaparkinglot":
+        time.sleep(20)
+        event_name = "eating-event"
+        res = {
+            "followupEvent": {
+                "name": event_name,
+                "data": {
+
+                }
+            }
+        }
+        res = json.dumps(res, indent=4)
+        r = make_response(res)
+        r.headers['Content-Type'] = 'application/json'
+        return r
+    else:
+        return
 
 
 def processRequest(req):
@@ -37,18 +61,28 @@ def processRequest(req):
 
     parameters = result.get("parameters")
 
-    my_previous_action = parameters.get("my-action")
-
     if my_action == "noRecomPlace":
         my_action = my_previous_action
         res = "铜锣湾怎么样？"
+    elif my_action == "noPlanedPlace":
+        res = "那去尖沙咀呗！"
+    elif my_action == "chooseacar":
+    	res = "你可以选择xxx路线，离它较近的停车场是xxx，价格为xxx，你需要预约停车位么？"
+    elif my_action == "changeparkinglot":
+    	res = "那你觉得xxx停车场怎么样？它的价格是xxx，暂有xxx个空闲停车位，需要预约么？"
+    elif my_action == "needaparkinglot":
+    	res = "好的，你将前往xxx停车场xxx号停车位，到达后开始计费"
+    	# event_name = "eating-event";
+    	# event_para_time = "14:00";
+    	# event_para_place = "麦当劳";
     else:
-        res = "那去尖沙咀呗"
+    	return {}
     return {
         "speech": res,
         "displayText": res,
         "source": "io-go-webhook-demo"
     }
+
 
 if __name__ == '__main__':
     port = int(os.getenv('PORT', 5000))
