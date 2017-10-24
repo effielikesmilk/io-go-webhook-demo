@@ -46,7 +46,8 @@ def processRequest(req):
         res = "那去尖沙咀呗"
     return {
         "speech": res,
-        "displayText": res
+        "displayText": res,
+        "source": "io-go-webhook-demo"
     }
 
 if __name__ == '__main__':
