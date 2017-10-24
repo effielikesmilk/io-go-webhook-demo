@@ -37,7 +37,7 @@ def processRequest(req):
 
     my_previous_action = parameters.get("my-action")
 
-    if my_action == "goSomewhere.no-recom-place":
+    if my_action == "noRecomPlace":
         my_action = my_previous_action
         res = "那去铜锣湾你觉得ok吗？"
     else:
