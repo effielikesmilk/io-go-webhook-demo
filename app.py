@@ -49,9 +49,9 @@ def triggerevent():
         res = json.dumps(res, indent=4)
         r = make_response(res)
         r.headers['Content-Type'] = 'application/json'
-        return r
     else:
-        return
+        r = "fail"
+    return r
 
 
 def processRequest(req):
@@ -71,7 +71,7 @@ def processRequest(req):
     elif my_action == "changeparkinglot":
     	res = "那你觉得xxx停车场怎么样？它的价格是xxx，暂有xxx个空闲停车位，需要预约么？"
     elif my_action == "needaparkinglot":
-    	res = "好的，你将前往xxx停车场xxx号停车位，到达后开始计费"
+    	res = "好的，前往xxx停车场xxx号停车位，到达后开始计费"
     	# event_name = "eating-event";
     	# event_para_time = "14:00";
     	# event_para_place = "麦当劳";
