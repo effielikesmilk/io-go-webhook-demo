@@ -62,7 +62,6 @@ def processRequest(req):
     parameters = result.get("parameters")
 
     if my_action == "noRecomPlace":
-        my_action = my_previous_action
         res = "铜锣湾怎么样？"
     elif my_action == "noPlanedPlace":
         res = "那去尖沙咀呗！"
