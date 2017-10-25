@@ -31,27 +31,27 @@ def webhook():
     return r
 
 
-@app.route('/webhook', methods=['POST'])
-def triggerevent():
-    req = request.get_json(silent=True, force=True)
-    action = req.get("result").get("action")
-    if action == "needaparkinglot":
-        time.sleep(20)
-        event_name = "eating-event"
-        res = {
-            "followupEvent": {
-                "name": event_name,
-                "data": {
+# @app.route('/webhook', methods=['POST'])
+# def triggerevent():
+#     req = request.get_json(silent=True, force=True)
+#     action = req.get("result").get("action")
+#     if action == "needaparkinglot":
+#         time.sleep(20)
+#         event_name = "eating-event"
+#         res = {
+#             "followupEvent": {
+#                 "name": event_name,
+#                 "data": {
 
-                }
-            }
-        }
-        res = json.dumps(res, indent=4)
-        r = make_response(res)
-        r.headers['Content-Type'] = 'application/json'
-    else:
-        r = "fail"
-    return r
+#                 }
+#             }
+#         }
+#         res = json.dumps(res, indent=4)
+#     else:
+#         res = "fail"
+#     r = make_response(res)
+#     r.headers['Content-Type'] = 'application/json'
+#     return r
 
 
 def processRequest(req):
